@@ -3,7 +3,6 @@ package com.eos.todolist
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.eos.todolist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener {
-            val intent = Intent(this, AddToDoActivity::class.java)
+            val intent = Intent(this, AddTodoActivity::class.java)
             startActivity(intent)
         }
 
