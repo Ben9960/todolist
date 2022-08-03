@@ -6,22 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eos.todolist.databinding.ItemTodoBinding
 import com.eos.todolist.db.TodoEntity
 
-class TodoRecyclerViewAdapter (private val todoList: ArrayList<TodoEntity>)
-    : RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder> (){
-        inner class MyViewHolder(binding: ItemTodoBinding) :RecyclerView.ViewHolder(binding.root){
-            val tv_importance = binding.tvImportance
-            val tv_title = binding.tvTitle
-            val root = binding.root
-        }
+class TodoRecyclerViewAdapter(
+    private val todoList: ArrayList<TodoEntity>,
+    private val listener: OnItemLongClickListener
+) : RecyclerView.Adapter<TodoRecyclerViewAdapter.MyViewHolder>() {
+    inner class MyViewHolder(binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root) {
+        val tv_importance = binding.tvImportance
+        val tv_title = binding.tvTitle
+        val root = binding.root
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): MyViewHolder{
-            val binding: ItemTodoBinding
-            = ItemTodoBinding.inflate(LayoutInflater.from(parent.context),
-            parent,false
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val binding: ItemTodoBinding = ItemTodoBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
 
-            return MyViewHolder(binding)
-        }
+        return MyViewHolder(binding)
+    }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val todoData = todoList[position]
@@ -37,13 +39,18 @@ class TodoRecyclerViewAdapter (private val todoList: ArrayList<TodoEntity>)
             }
         }
 
-        holder.tv_importance.text = todoData.title
+        holder.tv_importance.text = todoData.importance.toString()
         holder.tv_title.text = todoData.title
+        holder.root.setOnLongClickListener{
+            listener.onLongCLick(position)
+            true
+        }
+
     }
+
     override fun getItemCount(): Int {
         return todoList.size
     }
-
 
 
 
