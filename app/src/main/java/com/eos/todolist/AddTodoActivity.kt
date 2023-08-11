@@ -13,6 +13,7 @@ class AddTodoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddToDoBinding
 
     private lateinit var  db:AppDatabase
+
     private lateinit var todoDao: TodoDao
     private lateinit var todoList: ArrayList<TodoEntity>
 
